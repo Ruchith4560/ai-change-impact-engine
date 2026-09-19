@@ -1,0 +1,38 @@
+name: "AI Change Impact Analyzer"
+description: "AI-Powered Code Change Risk Analysis, Downstream Blast Radius & Intelligent Test Planning"
+author: "AI Change Impact Engine Team"
+branding:
+  icon: "git-pull-request"
+  color: "purple"
+
+inputs:
+  github-token:
+    description: "GitHub Token for posting review comments (secrets.GITHUB_TOKEN)"
+    required: false
+    default: ""
+  gateway-url:
+    description: "Node.js API Gateway URL"
+    required: false
+    default: "http://localhost:5000/api/v1"
+  fail-on-risk:
+    description: "Fail the action if risk tier meets or exceeds this level (LOW, MEDIUM, HIGH, CRITICAL)"
+    required: false
+    default: ""
+  diff-file:
+    description: "Optional pre-generated unified git diff file"
+    required: false
+    default: ""
+
+outputs:
+  risk-score:
+    description: "Composite risk score (0-100)"
+  risk-level:
+    description: "Risk tier (LOW, MEDIUM, HIGH, CRITICAL)"
+  total-impacted:
+    description: "Total downstream impacted symbols count"
+  selected-tests-count:
+    description: "Number of recommended regression tests"
+
+runs:
+  using: "node20"
+  main: "entrypoint.js"

@@ -1,0 +1,25 @@
+name: "AI Change Impact Analysis"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  impact-analysis:
+    name: "Change Risk & Blast Radius Check"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run AI Change Impact Engine
+        uses: ./.github/actions/change-impact
+        with:
+          fail-on-risk: "CRITICAL"
+          github-token: ${{ secrets.GITHUB_TOKEN }}

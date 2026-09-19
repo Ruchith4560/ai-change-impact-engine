@@ -1,0 +1,71 @@
+{
+  "name": "ai-change-impact-engine-vscode",
+  "displayName": "AI Change Impact Engine",
+  "description": "Deterministic AST blast-radius, downstream risk scoring, and intelligent test selection in VS Code",
+  "version": "1.0.0",
+  "publisher": "antigravity-dev",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Testing",
+    "Linters"
+  ],
+  "activationEvents": [
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:python"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "impact-engine.analyzeCurrentFile",
+        "title": "Analyze Active File Impact",
+        "category": "Change Impact"
+      },
+      {
+        "command": "impact-engine.runAffectedTests",
+        "title": "Run Affected Tests (Intelligent Selection)",
+        "category": "Change Impact"
+      },
+      {
+        "command": "impact-engine.showBlastRadius",
+        "title": "Show Downstream Blast Radius",
+        "category": "Change Impact"
+      }
+    ],
+    "configuration": {
+      "title": "AI Change Impact Engine",
+      "properties": {
+        "impactEngine.gatewayUrl": {
+          "type": "string",
+          "default": "http://localhost:5000",
+          "description": "URL of the Change Impact API Gateway service"
+        },
+        "impactEngine.enableCodeLens": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inline impact, risk, and test execution lenses above functions"
+        },
+        "impactEngine.failOnRisk": {
+          "type": "string",
+          "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+          "default": "HIGH",
+          "description": "Risk threshold that highlights symbols with warning decorations"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "build": "tsc -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.7.3"
+  }
+}

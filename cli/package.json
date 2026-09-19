@@ -1,0 +1,20 @@
+{
+  "name": "change-impact-cli",
+  "version": "1.0.0",
+  "description": "Developer CLI for AI Change Impact Engine",
+  "bin": {
+    "impact-cli": "./dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.4.5"
+  }
+}

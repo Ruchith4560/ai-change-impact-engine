@@ -1,0 +1,51 @@
+{
+  "benchmark_name": "synthetic-ecommerce-service",
+  "description": "Baseline micro-ecommerce topology for change impact and test selection evaluation",
+  "change_scenario": {
+    "file": "src/payment_service.ts",
+    "symbol": "PaymentService.processTransaction",
+    "change_type": "SIGNATURE_MODIFIED",
+    "description": "Added currency parameter to processTransaction method signature"
+  },
+  "ground_truth_blast_radius": {
+    "direct_impacts": [
+      {
+        "file": "src/checkout_service.ts",
+        "symbol": "CheckoutService.executeCheckout",
+        "depth": 1,
+        "causal_path": ["PaymentService.processTransaction", "CheckoutService.executeCheckout"]
+      }
+    ],
+    "transitive_impacts": [
+      {
+        "file": "src/order_controller.ts",
+        "symbol": "OrderController.handlePostOrder",
+        "depth": 2,
+        "causal_path": [
+          "PaymentService.processTransaction",
+          "CheckoutService.executeCheckout",
+          "OrderController.handlePostOrder"
+        ]
+      }
+    ],
+    "total_affected_symbols": 2,
+    "total_affected_files": 2
+  },
+  "ground_truth_test_selection": [
+    {
+      "test_file": "tests/payment_service.spec.ts",
+      "priority": "P1",
+      "reason": "Direct unit test targeting PaymentService.processTransaction"
+    },
+    {
+      "test_file": "tests/checkout_service.spec.ts",
+      "priority": "P2",
+      "reason": "Integration test targeting downstream CheckoutService.executeCheckout"
+    }
+  ],
+  "expected_risk_tier": "HIGH",
+  "expected_risk_factors": [
+    "PUBLIC_API_BREAK",
+    "BLAST_RADIUS_BREADTH"
+  ]
+}
