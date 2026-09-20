@@ -11,8 +11,12 @@ if str(INTELLIGENCE_DIR) not in sys.path:
 
 from app.main import app
 
-# Aliases for WSGI / ASGI runners
-application = app
+# Aliases for WSGI (Gunicorn) / ASGI (Uvicorn) runners
+try:
+    from a2wsgi import ASGIMiddleware
+    application = ASGIMiddleware(app)
+except ImportError:
+    application = app
 
 if __name__ == "__main__":
     import uvicorn

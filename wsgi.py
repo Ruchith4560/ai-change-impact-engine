@@ -9,4 +9,11 @@ if str(INTELLIGENCE_DIR) not in sys.path:
 
 from app.main import app
 
-application = app
+# Export application for WSGI (Gunicorn) and app for ASGI (Uvicorn)
+try:
+    from a2wsgi import ASGIMiddleware
+    application = ASGIMiddleware(app)
+except ImportError:
+    application = app
+
+app = app
