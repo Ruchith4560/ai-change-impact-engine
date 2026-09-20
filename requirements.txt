@@ -1,0 +1,24 @@
+# AI Change Impact Engine - Python Dependencies
+# Core Web Framework & Networking
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+starlette>=0.38.0
+pydantic>=2.9.0
+python-dotenv>=1.0.1
+httpx>=0.27.0
+requests>=2.31.0
+
+# AST Parsing & Language Grammars
+tree-sitter>=0.26.0
+tree-sitter-python>=0.25.0
+tree-sitter-typescript>=0.23.2
+
+# Hierarchical Dependency Graph & Blast Radius Traversal
+networkx>=3.0
+
+# Controlled AI Reviewer (Google Gemini 2.5 Flash)
+google-genai>=2.0.0
+
+# Testing & Evaluation Harness
+pytest>=8.3.0
+anyio>=4.0.0
