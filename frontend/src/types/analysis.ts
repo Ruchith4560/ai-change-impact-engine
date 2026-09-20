@@ -190,3 +190,32 @@ export interface AnalyticsTrendResponse {
   time_series: AnalyticsTrendPoint[];
 }
 
+export interface ScenarioPreset {
+  id: string;
+  name: string;
+  category: "breaking" | "logic" | "cascade" | "docs" | "custom";
+  badge: string;
+  badgeColor: string;
+  prTitle: string;
+  prNumber: number;
+  branch: string;
+  baseBranch: string;
+  author: {
+    name: string;
+    avatar: string;
+    handle: string;
+  };
+  commitSha: string;
+  rawDiff: string;
+  report: FullAnalysisReport;
+}
+
+export type BackendTargetType = "render" | "gateway" | "python" | "custom" | "offline";
+
+export interface BackendTargetConfig {
+  type: BackendTargetType;
+  name: string;
+  url: string;
+  description: string;
+}
+
