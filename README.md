@@ -3,6 +3,9 @@
 > **AI-Powered Code Change Risk Analysis, Downstream Blast Radius & Intelligent Test Planning Platform**  
 > *Transforming two-dimensional Git line diffs into deterministic dependency graphs, calibrated risk scores, and evidence-grounded review checklists.*
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-brightgreen?style=for-the-badge&logo=github)](https://Ruchith4560.github.io/ai-change-impact-engine/)
+[![Deploy to Render](https://img.shields.io/badge/Deploy%20to-Render-46E3B7?style=for-the-badge&logo=render)](https://render.com/deploy)
+
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Express](https://img.shields.io/badge/Express-4.21+-black?style=flat&logo=express)](https://expressjs.com/)
 [![React](https://img.shields.io/badge/React-18+-61DAFB?style=flat&logo=react)](https://react.dev/)
@@ -10,6 +13,11 @@
 [![NetworkX](https://img.shields.io/badge/NetworkX-Graph_Traverser-blue?style=flat)](https://networkx.org/)
 [![Google Gemini](https://img.shields.io/badge/Google_Gemini-2.5_Flash-8E75B2?style=flat&logo=google)](https://ai.google.dev/)
 [![Docker](https://img.shields.io/badge/Docker-Compose_Ready-2496ED?style=flat&logo=docker)](https://www.docker.com/)
+
+---
+
+> 🚀 **Live Interactive Demo**: [https://Ruchith4560.github.io/ai-change-impact-engine/](https://Ruchith4560.github.io/ai-change-impact-engine/)  
+> *Explore live AST-to-graph blast radius traversals, 6-factor additive risk breakdowns, regression test plans, and historical risk velocity analytics in your browser with zero setup.*
 
 ---
 
@@ -265,7 +273,30 @@ npm run dev
 
 ---
 
-## 8. Automated Test Suite Execution
+## 8. Production Deployment & Cloud Hosting
+
+The platform is architected for zero-friction cloud deployment across static hosts, serverless containers, and Kubernetes:
+
+### A. Live Interactive Dashboard (GitHub Pages)
+The client-side dashboard is continuously built and deployed to GitHub Pages via [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml):
+- **Live URL**: [https://Ruchith4560.github.io/ai-change-impact-engine/](https://Ruchith4560.github.io/ai-change-impact-engine/)
+- **One-Click Enablement**: In your GitHub repository, navigate to **Settings > Pages > Build and deployment > Source: GitHub Actions**.
+
+### B. Full-Stack Cloud Blueprint (Render)
+Deploy the complete polyglot ecosystem (Python FastAPI + Node Gateway + MongoDB) using the root [`render.yaml`](render.yaml) specification:
+1. Connect your GitHub repository to [Render](https://render.com).
+2. Render detects `render.yaml` and provisions all services with automated internal networking.
+
+### C. Frontend Deployment (Vercel)
+Zero-configuration frontend hosting using [`vercel.json`](vercel.json):
+```bash
+# Link repository on Vercel:
+vercel --prod
+```
+
+---
+
+## 9. Automated Test Suite Execution
 
 All services include comprehensive automated test suites:
 
@@ -274,7 +305,7 @@ All services include comprehensive automated test suites:
 cd intelligence_service
 pytest -v
 
-# 2. Node.js Gateway Tests (jest) - 13 tests passing
+# 2. Node.js Gateway Tests (jest) - 23 tests passing
 cd ../backend_gateway
 npm test
 
@@ -289,7 +320,7 @@ npm run build
 
 ---
 
-## 9. Senior Staff & Recruiter Architectural Defense
+## 10. Senior Staff & Recruiter Architectural Defense
 
 ### Q1: "Why not simply ask GPT-4 or Gemini to read the Git diff and describe the blast radius?"
 **Answer:**

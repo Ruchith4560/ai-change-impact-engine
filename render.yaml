@@ -1,0 +1,49 @@
+services:
+  # 1. Computational Intelligence Service (Python + FastAPI + Tree-sitter + NetworkX)
+  - type: web
+    name: ai-change-impact-intelligence
+    runtime: python
+    rootDir: intelligence_service
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: APP_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false
+
+  # 2. Node.js API Gateway & Webhook Ingestion Service
+  - type: web
+    name: ai-change-impact-gateway
+    runtime: node
+    rootDir: backend_gateway
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_ENV
+        value: production
+      - key: INTELLIGENCE_SERVICE_URL
+        fromService:
+          type: web
+          name: ai-change-impact-intelligence
+          property: host
+      - key: GITHUB_WEBHOOK_SECRET
+        generateValue: true
+      - key: MONGO_URI
+        sync: false
+
+  # 3. Interactive Developer Dashboard (React 18 + Vite)
+  - type: web
+    name: ai-change-impact-dashboard
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
