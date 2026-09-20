@@ -1,7 +1,8 @@
 # AI Change Impact Engine - Python Dependencies
-# Core Web Framework & Networking
+# Core Web Framework, ASGI & Production Servers
 fastapi>=0.115.0
 uvicorn[standard]>=0.30.0
+gunicorn>=22.0.0; sys_platform != 'win32'
 starlette>=0.38.0
 pydantic>=2.9.0
 python-dotenv>=1.0.1
