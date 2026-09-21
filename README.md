@@ -16,8 +16,13 @@
 
 ---
 
-> 🚀 **Live Interactive Demo**: [https://Ruchith4560.github.io/ai-change-impact-engine/](https://Ruchith4560.github.io/ai-change-impact-engine/)  
-> *Explore live AST-to-graph blast radius traversals, 6-factor additive risk breakdowns, regression test plans, and historical risk velocity analytics in your browser with zero setup.*
+> 🚀 **Live Production Deployments**:
+> - **Render Full-Stack App & API Engine**: [https://ai-change-impact-engine.onrender.com/](https://ai-change-impact-engine.onrender.com/)
+> - **GitHub Pages Dashboard**: [https://Ruchith4560.github.io/ai-change-impact-engine/](https://Ruchith4560.github.io/ai-change-impact-engine/)
+> - **Interactive Swagger UI (OpenAPI)**: [https://ai-change-impact-engine.onrender.com/docs](https://ai-change-impact-engine.onrender.com/docs)
+> - **Health & Liveness Probe**: [https://ai-change-impact-engine.onrender.com/health](https://ai-change-impact-engine.onrender.com/health)
+>
+> *Explore live AST-to-graph blast radius traversals, 6-factor additive risk breakdowns, regression test plans, and AI code reviews in your browser with zero setup.*
 
 ---
 
