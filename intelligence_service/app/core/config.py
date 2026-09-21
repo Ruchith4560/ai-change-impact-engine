@@ -16,7 +16,7 @@ class Settings(BaseModel):
     app_version: str = "1.0.0"
     debug: bool = Field(default_factory=lambda: os.getenv("DEBUG", "false").lower() == "true")
     host: str = Field(default_factory=lambda: os.getenv("HOST", "0.0.0.0"))
-    port: int = Field(default_factory=lambda: int(os.getenv("INTELLIGENCE_SERVICE_PORT", "8000")))
+    port: int = Field(default_factory=lambda: int(os.getenv("PORT", os.getenv("INTELLIGENCE_SERVICE_PORT", "8000"))))
     
     # Storage & Mongo
     mongo_uri: str = Field(default_factory=lambda: os.getenv("MONGO_URI", "mongodb://localhost:27017/change_impact_engine"))

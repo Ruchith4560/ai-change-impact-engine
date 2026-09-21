@@ -1,11 +1,11 @@
-"""Root WSGI/ASGI entrypoint for Gunicorn or WSGI servers."""
+"""Intelligence service WSGI/ASGI entrypoint."""
+import os
 import sys
 from pathlib import Path
 
-ROOT_DIR = Path(__file__).resolve().parent
-INTELLIGENCE_DIR = ROOT_DIR / "intelligence_service"
-if str(INTELLIGENCE_DIR) not in sys.path:
-    sys.path.insert(0, str(INTELLIGENCE_DIR))
+CURR_DIR = Path(__file__).resolve().parent
+if str(CURR_DIR) not in sys.path:
+    sys.path.insert(0, str(CURR_DIR))
 
 from app.main import app
 
@@ -30,7 +30,7 @@ class UniversalApplication:
                 return self.wsgi_app(*args, **kwargs)
             _environ, start_response = args
             start_response("500 Internal Server Error", [("Content-Type", "text/plain")])
-            return [b"a2wsgi not installed. Run with uvicorn or install a2wsgi."]
+            return [b"a2wsgi not installed."]
         return self.asgi_app(*args, **kwargs)
 
 

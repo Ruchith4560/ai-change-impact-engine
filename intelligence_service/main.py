@@ -1,11 +1,11 @@
-"""Root WSGI/ASGI entrypoint for Gunicorn or WSGI servers."""
+"""Intelligence service entrypoint for cloud hosting."""
+import os
 import sys
 from pathlib import Path
 
-ROOT_DIR = Path(__file__).resolve().parent
-INTELLIGENCE_DIR = ROOT_DIR / "intelligence_service"
-if str(INTELLIGENCE_DIR) not in sys.path:
-    sys.path.insert(0, str(INTELLIGENCE_DIR))
+CURR_DIR = Path(__file__).resolve().parent
+if str(CURR_DIR) not in sys.path:
+    sys.path.insert(0, str(CURR_DIR))
 
 from app.main import app
 
@@ -35,3 +35,8 @@ class UniversalApplication:
 
 
 application = UniversalApplication(app, _wsgi_app)
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", "8000"))
+    uvicorn.run(app, host="0.0.0.0", port=port)
