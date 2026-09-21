@@ -2,7 +2,9 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, HTMLResponse
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse, HTMLResponse, FileResponse
 from app.core.config import settings
 from app.core.logging import get_logger
 from app.api.health import router as health_router
@@ -13,6 +15,9 @@ from app.api.risk import router as risk_router
 from app.api.pipeline import router as pipeline_router
 
 logger = get_logger("main")
+
+STATIC_UI_DIR = Path(__file__).resolve().parent / "static_ui"
+ASSETS_DIR = STATIC_UI_DIR / "assets"
 
 
 @asynccontextmanager
@@ -40,6 +45,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount Static UI Assets
+if ASSETS_DIR.exists():
+    app.mount("/assets", StaticFiles(directory=str(ASSETS_DIR)), name="assets")
+
 # Mount Routers
 app.include_router(health_router)
 app.include_router(diff_router)
@@ -50,6 +59,16 @@ app.include_router(pipeline_router)
 
 
 @app.get("/", response_class=HTMLResponse)
+@app.get("/dashboard", response_class=HTMLResponse)
+async def root_index():
+    """Serves the interactive React developer dashboard or status page fallback."""
+    index_file = STATIC_UI_DIR / "index.html"
+    if index_file.exists():
+        return FileResponse(str(index_file))
+    return await root_status_page()
+
+
+@app.get("/status", response_class=HTMLResponse)
 async def root_status_page():
     """Root landing and system status overview for cloud deployments."""
     return """<!DOCTYPE html>
