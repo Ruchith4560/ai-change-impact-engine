@@ -1,7 +1,9 @@
-"""Root WSGI/ASGI entrypoint for Gunicorn or WSGI servers."""
+"""Root WSGI/ASGI entrypoint for cloud hosting (Render, Railway, Fly.io, Cloud Run)."""
+import os
 import sys
 from pathlib import Path
 
+# Add intelligence_service to sys.path so app modules (app.core, app.api, etc.) resolve seamlessly
 ROOT_DIR = Path(__file__).resolve().parent
 INTELLIGENCE_DIR = ROOT_DIR / "intelligence_service"
 if str(INTELLIGENCE_DIR) not in sys.path:
@@ -9,29 +11,5 @@ if str(INTELLIGENCE_DIR) not in sys.path:
 
 from app.main import app
 
-app = app
-
-try:
-    from a2wsgi import ASGIMiddleware
-    _wsgi_app = ASGIMiddleware(app)
-except ImportError:
-    _wsgi_app = None
-
-
-class UniversalApplication:
-    """Dispatches to WSGI adapter if called with 2 args, or directly to ASGI if called with 3 args."""
-    def __init__(self, asgi_app, wsgi_app):
-        self.asgi_app = asgi_app
-        self.wsgi_app = wsgi_app
-
-    def __call__(self, *args, **kwargs):
-        if len(args) == 2:
-            if self.wsgi_app is not None:
-                return self.wsgi_app(*args, **kwargs)
-            _environ, start_response = args
-            start_response("500 Internal Server Error", [("Content-Type", "text/plain")])
-            return [b"a2wsgi not installed. Run with uvicorn or install a2wsgi."]
-        return self.asgi_app(*args, **kwargs)
-
-
-application = UniversalApplication(app, _wsgi_app)
+# Export FastAPI instance as both 'app' and 'application'
+application = app
